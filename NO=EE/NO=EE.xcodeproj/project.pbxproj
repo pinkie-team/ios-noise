@@ -12,6 +12,8 @@
 		37B6896D211D9320007AC870 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37B6896B211D9320007AC870 /* Main.storyboard */; };
 		37B6896F211D9326007AC870 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37B6896E211D9326007AC870 /* Assets.xcassets */; };
 		37B68972211D9326007AC870 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37B68970211D9326007AC870 /* LaunchScreen.storyboard */; };
+		37E21EFB211F27BF007F2F59 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E21EFA211F27BF007F2F59 /* Extensions.swift */; };
+		37E21EFD211F2956007F2F59 /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E21EFC211F2956007F2F59 /* Enum.swift */; };
 		D84AAC0F274B97FD5C7A2F59 /* Pods_NO_EE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50BE2E1634E592265343D031 /* Pods_NO_EE.framework */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +26,8 @@
 		37B6896E211D9326007AC870 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		37B68971211D9326007AC870 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		37B68973211D9326007AC870 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		37E21EFA211F27BF007F2F59 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		37E21EFC211F2956007F2F59 /* Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
 		50BE2E1634E592265343D031 /* Pods_NO_EE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NO_EE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B3502744BF6E2F64855FCD9 /* Pods-NO=EE.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NO=EE.release.xcconfig"; path = "Pods/Target Support Files/Pods-NO=EE/Pods-NO=EE.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,6 +71,8 @@
 				37B6896E211D9326007AC870 /* Assets.xcassets */,
 				37B68970211D9326007AC870 /* LaunchScreen.storyboard */,
 				37B68973211D9326007AC870 /* Info.plist */,
+				37E21EFA211F27BF007F2F59 /* Extensions.swift */,
+				37E21EFC211F2956007F2F59 /* Enum.swift */,
 			);
 			path = "NO=EE";
 			sourceTree = "<group>";
@@ -183,10 +189,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-NO=EE/Pods-NO=EE-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -201,6 +209,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				37B6896A211D9320007AC870 /* ViewController.swift in Sources */,
+				37E21EFB211F27BF007F2F59 /* Extensions.swift in Sources */,
+				37E21EFD211F2956007F2F59 /* Enum.swift in Sources */,
 				37B68968211D9320007AC870 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
