@@ -131,8 +131,9 @@ class ViewController: FormViewController {
     }
     
     func writeLogFile() {
-        let valueFileName = "value.csv"
-        let timeFileName = "time.csv"
+        let sensor = form.values()["sensor"] as! String
+        let valueFileName = "value" + sensor + ".csv"
+        let timeFileName = "time" + sensor + ".csv"
         
         if let documentDirectoryFileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last {
 
