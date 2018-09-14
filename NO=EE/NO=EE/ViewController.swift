@@ -31,7 +31,7 @@ class ViewController: FormViewController {
     
     func CallAPI(z: Double) {
         let sensor = form.values()["sensor"] as! String
-        let url = "http://127.0.0.1:5000?" + "z=" + String(z) + "&sensor=" + sensor
+        let url = "http://172.20.10.10:80?" + "z=" + String(z) + "&sensor=" + sensor
         Alamofire.request(url, method: .get).responseJSON { (response) in
             print("************** Call Done **************")
         }
