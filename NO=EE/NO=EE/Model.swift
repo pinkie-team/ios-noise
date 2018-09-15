@@ -55,12 +55,13 @@ class Model {
                 self.startTime = Date().timeIntervalSince1970
                 self.timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(self.CountTime), userInfo: nil, repeats: true)
                 
-                self.CallAPI(z: gyro.z)
+                self.callMotionAPI(z: gyro.z)
             }
         })
     }
     
     func writeLogFile() {
+        print(currentSensor)
         let valueFileName = "value" + currentSensor + ".csv"
         let timeFileName = "time" + currentSensor + ".csv"
         
@@ -89,8 +90,8 @@ class Model {
         }
     }
 
-    func CallAPI(z: Double) {
-        let url = "http://172.20.10.10:80?" + "z=" + String(z) + "&sensor=" + currentSensor
+    func callMotionAPI(z: Double) {
+        let url = "http://172.20.10.10:80/motion?" + "z=" + String(z) + "&sensor=" + currentSensor
         Alamofire.request(url, method: .get).responseJSON { (response) in
             print("************** Call Done **************")
         }

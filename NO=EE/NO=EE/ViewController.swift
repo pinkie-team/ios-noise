@@ -59,27 +59,62 @@ class ViewController: FormViewController, ViewInterface {
         }
     }
     
-    func buttonTapped() {
-        presenter.setCurrentSensor(value: form.values()["sensor"] as! String)
-        
-        let buttonRow = form.rowBy(tag: "button")
+    fileprivate func runAlgorithm() {
+        let algorithm = form.values()["algorithm"] as! String
         
         if presenter.getIsMeasuring() {
-            presenter.writeLogFile()
-            
-            presenter.resetValueTime()
-            presenter.setIsMeasuring(value: false)
-            
-            presenter.stopDeviceMotion()
-            
-            buttonRow?.title = "計測開始"
-            buttonRow?.updateCell()
+            switch algorithm {
+            case "振動":
+                presenter.writeLogFile()
+                presenter.stopDeviceMotion()
+                presenter.resetValueTime()
+                presenter.setIsMeasuring(value: false)
+                print("振動")
+            case "音":
+                print("音")
+            default:
+                print("両方")
+            }
         }else {
-            presenter.setIsMeasuring(value: true)
-            buttonRow?.title = "計測停止"
-            buttonRow?.updateCell()
-            presenter.setDeviceMotion()
+            switch algorithm {
+            case "振動":
+                presenter.setIsMeasuring(value: true)
+                presenter.setDeviceMotion()
+                print("振動")
+            case "音":
+                print("音")
+            default:
+                print("両方")
+            }
         }
+    }
+    
+    fileprivate func buttonTapped() {
+        presenter.setCurrentSensor(value: form.values()["sensor"] as! String)
+        let sensorRow = form.rowBy(tag: "sensor")
+        let buttonRow = form.rowBy(tag: "button")
+        let algorithmRow = form.rowBy(tag: "algorithm")
+        var title = ""
+        var disabled: Condition = false
+        
+        if presenter.getIsMeasuring() {
+            title = "計測開始"
+            disabled = false
+        }else {
+            title = "計測停止"
+            disabled = true
+        }
+        
+        buttonRow?.title = title
+        buttonRow?.updateCell()
+        
+        algorithmRow?.disabled = disabled
+        algorithmRow?.evaluateDisabled()
+        
+        sensorRow?.disabled = disabled
+        sensorRow?.evaluateDisabled()
+        
+        runAlgorithm()
     }
     
     override func didReceiveMemoryWarning() {
