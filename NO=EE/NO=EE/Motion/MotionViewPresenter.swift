@@ -9,9 +9,6 @@
 import Foundation
 
 protocol ViewPresentable :class{
-    var shiftCategories: [String] { get }
-    var eventNumber: Int { get }
-    var userColorScheme: String { get }
 }
 
 class MotionViewPresenter {
