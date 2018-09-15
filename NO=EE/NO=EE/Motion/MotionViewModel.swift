@@ -1,5 +1,5 @@
 //
-//  Model.swift
+//  MotionViewModel.swift
 //  NO=EE
 //
 //  Created by 岩見建汰 on 2018/09/15.
@@ -10,15 +10,14 @@ import Foundation
 import CoreMotion
 import Alamofire
 
-protocol ViewModelDelegate: class {
+protocol MotionViewModelDelegate: class {
 }
 
-class Model {
-    weak var delegate: ViewModelDelegate?
+class MotionViewModel {
+    weak var delegate: MotionViewModelDelegate?
     var motionManager: CMMotionManager = CMMotionManager()
     
     let sensors = ["1", "2"]
-    let algorithms = ["振動", "音", "両方"]
     var isMeasuring = false
     var valueTmp: String = ""
     var timeTmp: String = ""

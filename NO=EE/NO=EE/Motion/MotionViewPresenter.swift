@@ -1,5 +1,5 @@
 //
-//  Presenter.swift
+//  MotionViewPresenter.swift
 //  NO=EE
 //
 //  Created by 岩見建汰 on 2018/09/15.
@@ -14,23 +14,19 @@ protocol ViewPresentable :class{
     var userColorScheme: String { get }
 }
 
-class Presenter {
+class MotionViewPresenter {
     
-    weak var view: ViewInterface?
-    let model: Model
+    weak var view: MotionViewInterface?
+    let model: MotionViewModel
     
-    init(view: ViewInterface) {
+    init(view: MotionViewInterface) {
         self.view = view
-        self.model = Model()
+        self.model = MotionViewModel()
         model.delegate = self
     }
     
     func getSensors() -> [String] {
         return model.sensors
-    }
-    
-    func getAlgorithms() -> [String] {
-        return model.algorithms
     }
     
     func setIsMeasuring(value: Bool) {
@@ -64,6 +60,6 @@ class Presenter {
     
 }
 
-extension Presenter: ViewModelDelegate {
+extension MotionViewPresenter: MotionViewModelDelegate {
     
 }

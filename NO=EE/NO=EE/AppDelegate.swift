@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreMotion
 
 
 @UIApplicationMain
@@ -21,12 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = UIColor.hex(Color.main.rawValue, alpha: 1.0)
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
-        let topVC = ViewController()
-        let nav = UINavigationController()
-        nav.viewControllers = [topVC]
-        self.window!.rootViewController = nav
-        self.window?.makeKeyAndVisible()
-
         return true
     }
 

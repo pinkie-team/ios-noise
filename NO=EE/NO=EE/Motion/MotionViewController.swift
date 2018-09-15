@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MotionViewController.swift
 //  NO=EE
 //
 //  Created by 岩見建汰 on 2018/08/10.
@@ -9,12 +9,12 @@
 import UIKit
 import Eureka
 
-protocol ViewInterface: class {
+protocol MotionViewInterface: class {
 }
 
-class ViewController: FormViewController, ViewInterface {
+class MotionViewController: FormViewController, MotionViewInterface {
 
-    fileprivate var presenter: Presenter!
+    fileprivate var presenter: MotionViewPresenter!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,13 +23,17 @@ class ViewController: FormViewController, ViewInterface {
         initUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tabBarController?.navigationItem.title = "振動"
+    }
+    
     fileprivate func initPresenter() {
-        presenter = Presenter(view: self)
+        presenter = MotionViewPresenter(view: self)
     }
     
     fileprivate func initUI() {
-        self.navigationItem.title = "Top"
-        
         form +++ Section("")
             <<< PickerInputRow<String>(""){
                 $0.title = "センサー種別"
@@ -38,14 +42,6 @@ class ViewController: FormViewController, ViewInterface {
                 $0.tag = "sensor"
                 $0.cell.detailTextLabel?.textColor = UIColor.black
             }
-            
-            <<< PickerInputRow<String>(""){
-                $0.title = "検出アルゴリズム"
-                $0.options = presenter.getAlgorithms()
-                $0.value = presenter.getAlgorithms()[0]
-                $0.tag = "algorithm"
-                $0.cell.detailTextLabel?.textColor = UIColor.black
-        }
         
         form +++ Section("")
             <<< ButtonRow(){
@@ -59,62 +55,32 @@ class ViewController: FormViewController, ViewInterface {
         }
     }
     
-    fileprivate func runAlgorithm() {
-        let algorithm = form.values()["algorithm"] as! String
-        
-        if presenter.getIsMeasuring() {
-            switch algorithm {
-            case "振動":
-                presenter.writeLogFile()
-                presenter.stopDeviceMotion()
-                presenter.resetValueTime()
-                presenter.setIsMeasuring(value: false)
-                print("振動")
-            case "音":
-                print("音")
-            default:
-                print("両方")
-            }
-        }else {
-            switch algorithm {
-            case "振動":
-                presenter.setIsMeasuring(value: true)
-                presenter.setDeviceMotion()
-                print("振動")
-            case "音":
-                print("音")
-            default:
-                print("両方")
-            }
-        }
-    }
-    
     fileprivate func buttonTapped() {
         presenter.setCurrentSensor(value: form.values()["sensor"] as! String)
         let sensorRow = form.rowBy(tag: "sensor")
         let buttonRow = form.rowBy(tag: "button")
-        let algorithmRow = form.rowBy(tag: "algorithm")
         var title = ""
         var disabled: Condition = false
         
         if presenter.getIsMeasuring() {
             title = "計測開始"
             disabled = false
+            presenter.writeLogFile()
+            presenter.stopDeviceMotion()
+            presenter.resetValueTime()
+            presenter.setIsMeasuring(value: false)
         }else {
             title = "計測停止"
             disabled = true
+            presenter.setIsMeasuring(value: true)
+            presenter.setDeviceMotion()
         }
         
         buttonRow?.title = title
         buttonRow?.updateCell()
         
-        algorithmRow?.disabled = disabled
-        algorithmRow?.evaluateDisabled()
-        
         sensorRow?.disabled = disabled
         sensorRow?.evaluateDisabled()
-        
-        runAlgorithm()
     }
     
     override func didReceiveMemoryWarning() {
