@@ -60,6 +60,14 @@ class ViewController: FormViewController {
                 $0.cell.detailTextLabel?.textColor = UIColor.black
             }
         
+            <<< PickerInputRow<String>(""){
+                $0.title = "検出アルゴリズム"
+                $0.options = getAlgorithm()
+                $0.value = getAlgorithm()[0]
+                $0.tag = "algorithm"
+                $0.cell.detailTextLabel?.textColor = UIColor.black
+            }
+        
         form +++ Section("")
             <<< ButtonRow(){
                 $0.title = "計測開始"
@@ -74,6 +82,10 @@ class ViewController: FormViewController {
     
     func getSensors() -> [String] {
         return ["1", "2"]
+    }
+    
+    func getAlgorithm() -> [String] {
+        return ["振動", "音", "両方"]
     }
     
     func buttonTapped() {
