@@ -53,9 +53,9 @@ class ViewController: FormViewController, ViewInterface {
                 $0.tag = "button"
                 $0.baseCell.backgroundColor = UIColor.hex(Color.main.rawValue, alpha: 1.0)
                 $0.baseCell.tintColor = UIColor.white
-                }
-                .onCellSelection {  cell, row in
-                    self.buttonTapped()
+            }
+            .onCellSelection {  cell, row in
+                self.buttonTapped()
         }
     }
     
