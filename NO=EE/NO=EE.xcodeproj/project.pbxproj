@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37B1889E214D3D7D006D4EB4 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B1889D214D3D7D006D4EB4 /* Presenter.swift */; };
+		37B188A0214D3D8E006D4EB4 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B1889F214D3D8E006D4EB4 /* Model.swift */; };
 		37B68968211D9320007AC870 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B68967211D9320007AC870 /* AppDelegate.swift */; };
 		37B6896A211D9320007AC870 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B68969211D9320007AC870 /* ViewController.swift */; };
 		37B6896D211D9320007AC870 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37B6896B211D9320007AC870 /* Main.storyboard */; };
@@ -19,6 +21,8 @@
 
 /* Begin PBXFileReference section */
 		13F75AA9E97A39C4AC64EF1D /* Pods-NO=EE.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NO=EE.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NO=EE/Pods-NO=EE.debug.xcconfig"; sourceTree = "<group>"; };
+		37B1889D214D3D7D006D4EB4 /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
+		37B1889F214D3D8E006D4EB4 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		37B68964211D9320007AC870 /* NO=EE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NO=EE.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		37B68967211D9320007AC870 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37B68969211D9320007AC870 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -67,6 +71,8 @@
 			children = (
 				37B68967211D9320007AC870 /* AppDelegate.swift */,
 				37B68969211D9320007AC870 /* ViewController.swift */,
+				37B1889D214D3D7D006D4EB4 /* Presenter.swift */,
+				37B1889F214D3D8E006D4EB4 /* Model.swift */,
 				37B6896B211D9320007AC870 /* Main.storyboard */,
 				37B6896E211D9326007AC870 /* Assets.xcassets */,
 				37B68970211D9326007AC870 /* LaunchScreen.storyboard */,
@@ -211,7 +217,9 @@
 				37B6896A211D9320007AC870 /* ViewController.swift in Sources */,
 				37E21EFB211F27BF007F2F59 /* Extensions.swift in Sources */,
 				37E21EFD211F2956007F2F59 /* Enum.swift in Sources */,
+				37B188A0214D3D8E006D4EB4 /* Model.swift in Sources */,
 				37B68968211D9320007AC870 /* AppDelegate.swift in Sources */,
+				37B1889E214D3D7D006D4EB4 /* Presenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

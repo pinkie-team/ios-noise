@@ -14,8 +14,6 @@ import CoreMotion
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var value: String?
-    var time: String?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         UINavigationBar.appearance().isTranslucent = false
