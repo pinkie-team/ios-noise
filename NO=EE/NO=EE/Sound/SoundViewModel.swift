@@ -52,11 +52,12 @@ class SoundViewModel {
     }
     
     func stopRecoding() {
-        crop()
+        timer.invalidate()
+        
         AudioQueueFlush(queue)
         AudioQueueStop(queue, false)
         AudioQueueDispose(queue, true)
-        timer.invalidate()
+        audioRecorder?.stop()
     }
 }
 
@@ -98,6 +99,8 @@ extension SoundViewModel {
                 switch exporter!.status {
                 case .completed:
                     print("Crop Success! Url -> \(croppedFileSaveURL)")
+//                    self.timer.invalidate()
+                    self.startRecoding()
                 case .failed, .cancelled:
                     print("error = \(exporter?.error)")
                 default:
@@ -178,8 +181,12 @@ extension SoundViewModel {
         print("mPeakPower: ", levelMeter.mPeakPower, "mAveragePower: ", levelMeter.mAveragePower)
         print("")
         
-        if levelMeter.mPeakPower >= -1.0 {
+        if levelMeter.mPeakPower >= -1.0 && levelMeter.mPeakPower != 0.0 && levelMeter.mAveragePower != 0.0 {
             print("+++++++++++++++ LOUD!!! +++++++++++++++")
+            AudioQueueFlush(queue)
+            AudioQueueStop(queue, false)
+            AudioQueueDispose(queue, true)
+            crop()
         }
     }
 }
