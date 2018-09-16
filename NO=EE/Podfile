@@ -9,4 +9,5 @@ target 'NO=EE' do
 
 pod 'Alamofire', '~> 4.5'
 pod 'Eureka', :git => 'https://github.com/xmartlabs/Eureka.git', :branch => 'Swift-3.3'
+pod 'TinyConstraints', :git => 'https://github.com/roberthein/TinyConstraints.git', :branch => 'Release_2.1.2'
 end

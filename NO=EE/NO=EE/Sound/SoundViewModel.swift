@@ -12,6 +12,7 @@ import AVFoundation
 import AudioToolbox
 
 protocol SoundViewModelDelegate: class {
+    func updateLabel(peak: Float32, ave: Float32)
 }
 
 private func AudioQueueInputCallback(
@@ -108,7 +109,6 @@ extension SoundViewModel {
                 }
             })
         }
-
     }
 }
 
@@ -180,6 +180,8 @@ extension SoundViewModel {
         
         print("mPeakPower: ", levelMeter.mPeakPower, "mAveragePower: ", levelMeter.mAveragePower)
         print("")
+        
+        delegate?.updateLabel(peak: levelMeter.mPeakPower, ave: levelMeter.mAveragePower)
         
         if levelMeter.mPeakPower >= -1.0 && levelMeter.mPeakPower != 0.0 && levelMeter.mAveragePower != 0.0 {
             print("+++++++++++++++ LOUD!!! +++++++++++++++")

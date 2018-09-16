@@ -8,13 +8,16 @@
 
 import UIKit
 import Eureka
+import TinyConstraints
 
 protocol SoundViewInterface: class {
+    func updateLabel(peak: Float32, ave: Float32)
 }
 
-class SoundViewController: FormViewController, SoundViewInterface {
-
+class SoundViewController: FormViewController {
     fileprivate var presenter: SoundViewPresenter!
+    fileprivate var peakLabel: UILabel!
+    fileprivate var aveLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +56,14 @@ class SoundViewController: FormViewController, SoundViewInterface {
             .onCellSelection {  cell, row in
                 self.buttonTapped()
         }
+        
+        peakLabel = UILabel()
+        aveLabel = UILabel()
+        tableView.addSubview(peakLabel)
+        tableView.addSubview(aveLabel)
+        peakLabel.center(in: tableView)
+        aveLabel.topToBottom(of: peakLabel, offset: 10)
+        aveLabel.centerX(to: tableView)
     }
     
     fileprivate func buttonTapped() {
@@ -65,9 +76,6 @@ class SoundViewController: FormViewController, SoundViewInterface {
         if presenter.getIsMeasuring() {
             title = "計測開始"
             disabled = false
-//            presenter.writeLogFile()
-//            presenter.stopDeviceMotion()
-//            presenter.resetValueTime()
             presenter.setIsMeasuring(value: false)
             presenter.stopRecoding()
         }else {
@@ -86,6 +94,13 @@ class SoundViewController: FormViewController, SoundViewInterface {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+}
+
+extension SoundViewController: SoundViewInterface {
+    func updateLabel(peak: Float32, ave: Float32) {
+        peakLabel.text = "Peak: " + String(peak)
+        aveLabel.text = "Ave: " + String(ave)
     }
 }
 

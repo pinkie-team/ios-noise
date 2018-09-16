@@ -48,5 +48,9 @@ class SoundViewPresenter {
 }
 
 extension SoundViewPresenter: SoundViewModelDelegate {
+    func updateLabel(peak: Float32, ave: Float32) {
+        view?.updateLabel(peak: peak, ave: ave)
+    }
+    
     
 }
