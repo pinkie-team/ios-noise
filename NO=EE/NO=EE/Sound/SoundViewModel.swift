@@ -34,7 +34,7 @@ class SoundViewModel {
     let fileURL = NSURL(fileURLWithPath: NSHomeDirectory() + "/Documents/test.m4a")
     
     var queue: AudioQueueRef!
-    var timer: Timer!
+    var volumeTimer: Timer!
     var dataFormat = AudioStreamBasicDescription(
         mSampleRate: 44100.0,
         mFormatID: kAudioFormatLinearPCM,
@@ -48,13 +48,19 @@ class SoundViewModel {
         mBitsPerChannel: 16,
         mReserved: 0)
     
+    let skipTime = 3
+    var skipTimer = Timer()
+    var startTime:Double = 0.0
+    var isCall:Bool = true
+    
+    
     func startRecoding() {
         setUpRecoding()
         setUpVolume()
     }
     
     func stopRecoding() {
-        timer.invalidate()
+        volumeTimer.invalidate()
         
         AudioQueueFlush(queue)
         AudioQueueStop(queue, false)
@@ -64,6 +70,18 @@ class SoundViewModel {
 }
 
 
+extension SoundViewModel {
+    @objc func CountTime() {
+        let elapsedTime = Date().timeIntervalSince1970 - startTime
+        let flooredErapsedTime = Int(floor(elapsedTime))
+        let leftTime = skipTime - flooredErapsedTime
+        
+        if leftTime == 0 {
+            volumeTimer.invalidate()
+            isCall = true
+        }
+    }
+}
 
 // MARK: - クロップ
 extension SoundViewModel {
@@ -166,12 +184,12 @@ extension SoundViewModel {
         
         var enabledLevelMeter: UInt32 = 1
         AudioQueueSetProperty(queue, kAudioQueueProperty_EnableLevelMetering, &enabledLevelMeter, UInt32(MemoryLayout<UInt32>.size))
-        timer = Timer.scheduledTimer(timeInterval: 0.5,
+        volumeTimer = Timer.scheduledTimer(timeInterval: 0.5,
                                           target: self,
                                           selector: #selector(detectVolume(_:)),
                                           userInfo: nil,
                                           repeats: true)
-        timer?.fire()
+        volumeTimer?.fire()
     }
     
     @objc private func detectVolume(_ timer: Timer)
@@ -192,11 +210,16 @@ extension SoundViewModel {
             self.delegate?.updateLabel(peak: levelMeter.mPeakPower, ave: levelMeter.mAveragePower)
         }
         
-        if levelMeter.mPeakPower >= -1.0 && levelMeter.mPeakPower != 0.0 && levelMeter.mAveragePower != 0.0 {
+        if levelMeter.mPeakPower >= -1.0 && levelMeter.mPeakPower != 0.0 && levelMeter.mAveragePower != 0.0 && isCall {
             print("+++++++++++++++ LOUD!!! +++++++++++++++")
             AudioQueueFlush(queue)
             AudioQueueStop(queue, false)
             AudioQueueDispose(queue, true)
+            
+            isCall = false
+            startTime = Date().timeIntervalSince1970
+            volumeTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(CountTime), userInfo: nil, repeats: true)
+            
             crop(volume: levelMeter.mPeakPower)
         }
     }
