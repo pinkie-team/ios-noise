@@ -9,6 +9,7 @@
 import Foundation
 import CoreMotion
 import Alamofire
+import SwiftyJSON
 
 protocol MotionViewModelDelegate: class {
     func updateLabel(z: Double)
@@ -47,10 +48,8 @@ class MotionViewModel {
             dateFormater.dateFormat = "yyyy/MM/dd HH:mm:ss"
             let date = dateFormater.string(from: Date())
             
-            //            self.tmp += String(gyro.z) + " " + date + "\n"
             self.valueTmp += String(gyro.z) + ","
             self.timeTmp += date + ","
-            //            self.label.text = String(format: "%.5f", gyro.z)
             
             if abs(gyro.z) > 0.003 && self.isCall {
                 self.isCall = false
@@ -62,6 +61,21 @@ class MotionViewModel {
         })
     }
     
+    @objc func CountTime() {
+        let elapsedTime = Date().timeIntervalSince1970 - startTime
+        let flooredErapsedTime = Int(floor(elapsedTime))
+        let leftTime = skipTime - flooredErapsedTime
+        
+        if leftTime == 0 {
+            timer.invalidate()
+            isCall = true
+        }
+    }
+}
+
+
+// MARK: - Log
+extension MotionViewModel {
     func writeLogFile() {
         print(currentSensor)
         let valueFileName = "value" + currentSensor + ".csv"
@@ -80,22 +94,26 @@ class MotionViewModel {
             }
         }
     }
-    
-    @objc func CountTime() {
-        let elapsedTime = Date().timeIntervalSince1970 - startTime
-        let flooredErapsedTime = Int(floor(elapsedTime))
-        let leftTime = skipTime - flooredErapsedTime
-        
-        if leftTime == 0 {
-            timer.invalidate()
-            isCall = true
-        }
-    }
+}
 
+
+// MARK: - API
+extension MotionViewModel {
     func callMotionAPI(z: Double) {
-        let url = "http://172.20.10.10:80/motion?" + "z=" + String(z) + "&sensor=" + currentSensor
-        Alamofire.request(url, method: .get).responseJSON { (response) in
-            print("************** Call Done **************")
+        let url = "http://172.20.10.10:80/motion"
+        let params = ["z": String(z), "sensor": currentSensor]
+        
+        Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding(options: [])).validate(statusCode: 200..<600).responseJSON { (response) in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                print("***** GET Auth API Results *****")
+                print(json)
+                print("***** GET Auth API Results *****")
+                
+            case .failure(_):
+                print("API Error")
+            }
         }
     }
 }

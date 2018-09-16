@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 import AVFoundation
 import AudioToolbox
+import SwiftyJSON
 
 protocol SoundViewModelDelegate: class {
     func updateLabel(peak: Float32, ave: Float32)
@@ -66,7 +67,7 @@ class SoundViewModel {
 
 // MARK: - クロップ
 extension SoundViewModel {
-    fileprivate func crop() {
+    fileprivate func crop(volume: Float32) {
         let cropTime:TimeInterval = 3
         guard let recodingTime = audioRecorder?.currentTime else {
             print("Error recordedTime")
@@ -100,6 +101,8 @@ extension SoundViewModel {
                 switch exporter!.status {
                 case .completed:
                     print("Crop Success! Url -> \(croppedFileSaveURL)")
+                    
+                    self.callSoundAPI(volume: String(volume), sensor: self.currentSensor, crop: croppedFileSaveURL as URL)
                     self.startRecoding()
                 case .failed, .cancelled:
                     print("error = \(exporter?.error)")
@@ -192,7 +195,46 @@ extension SoundViewModel {
             AudioQueueFlush(queue)
             AudioQueueStop(queue, false)
             AudioQueueDispose(queue, true)
-            crop()
+            crop(volume: levelMeter.mPeakPower)
         }
+    }
+}
+
+
+
+// MARK: - API
+extension SoundViewModel {
+    func callSoundAPI(volume:String, sensor:String, crop:URL) {
+        let url = "http://172.20.10.10:80/sound"
+        
+        Alamofire.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(volume.data(using: .utf8)!, withName: "volume")
+            multipartFormData.append(sensor.data(using: .utf8)!, withName: "sensor")
+            multipartFormData.append(crop, withName: "crop")
+            },
+            to: url,
+            encodingCompletion: { encodingResult in
+                switch encodingResult {
+                    case .success(let upload, _, _):
+                            upload
+                            .validate(statusCode: 200..<600)
+                            .responseJSON { response in
+                                
+                                switch response.result {
+                                case .success(let value):
+                                    let json = JSON(value)
+                                    print("***** GET Auth API Results *****")
+                                    print(json)
+                                    print("***** GET Auth API Results *****")
+                                case .failure(_):
+                                    print("API Error")
+                                }
+                        }
+                    case .failure(let encodingError):
+                        print("encodingError")
+                        print(encodingError)
+                    }
+            }
+            )
     }
 }
