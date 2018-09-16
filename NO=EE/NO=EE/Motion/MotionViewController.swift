@@ -8,13 +8,16 @@
 
 import UIKit
 import Eureka
+import TinyConstraints
 
 protocol MotionViewInterface: class {
+    func updateLabel(z: Double)
 }
 
-class MotionViewController: FormViewController, MotionViewInterface {
+class MotionViewController: FormViewController {
 
     fileprivate var presenter: MotionViewPresenter!
+    fileprivate var zLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +56,10 @@ class MotionViewController: FormViewController, MotionViewInterface {
             .onCellSelection {  cell, row in
                 self.buttonTapped()
         }
+        
+        zLabel = UILabel()
+        tableView.addSubview(zLabel)
+        zLabel.center(in: tableView)
     }
     
     fileprivate func buttonTapped() {
@@ -85,6 +92,12 @@ class MotionViewController: FormViewController, MotionViewInterface {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+}
+
+extension MotionViewController: MotionViewInterface {
+    func updateLabel(z: Double) {
+        zLabel.text = "z: " + String(z)
     }
 }
 

@@ -8,9 +8,6 @@
 
 import Foundation
 
-protocol SoundViewPresentable :class{
-}
-
 class SoundViewPresenter {
     
     weak var view: SoundViewInterface?

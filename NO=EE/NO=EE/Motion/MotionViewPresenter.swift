@@ -8,9 +8,6 @@
 
 import Foundation
 
-protocol ViewPresentable :class{
-}
-
 class MotionViewPresenter {
     
     weak var view: MotionViewInterface?
@@ -58,5 +55,7 @@ class MotionViewPresenter {
 }
 
 extension MotionViewPresenter: MotionViewModelDelegate {
-    
+    func updateLabel(z: Double) {
+        view?.updateLabel(z: z)
+    }
 }

@@ -11,6 +11,7 @@ import CoreMotion
 import Alamofire
 
 protocol MotionViewModelDelegate: class {
+    func updateLabel(z: Double)
 }
 
 class MotionViewModel {
@@ -38,6 +39,8 @@ class MotionViewModel {
             deviceManager, error in
             let gyro: CMRotationRate = deviceManager!.rotationRate
             print(gyro.z)
+            
+            self.delegate?.updateLabel(z: gyro.z)
             
             let dateFormater = DateFormatter()
             dateFormater.locale = Locale(identifier: "ja_JP")

@@ -100,7 +100,6 @@ extension SoundViewModel {
                 switch exporter!.status {
                 case .completed:
                     print("Crop Success! Url -> \(croppedFileSaveURL)")
-//                    self.timer.invalidate()
                     self.startRecoding()
                 case .failed, .cancelled:
                     print("error = \(exporter?.error)")
