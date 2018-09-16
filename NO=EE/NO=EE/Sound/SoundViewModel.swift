@@ -103,10 +103,15 @@ extension SoundViewModel {
                     self.startRecoding()
                 case .failed, .cancelled:
                     print("error = \(exporter?.error)")
+                    self.startRecoding()
                 default:
                     print("error = \(exporter?.error)")
+                    self.startRecoding()
                 }
             })
+        }else {
+            startRecoding()
+            print("時間が短いのでスキップ")
         }
     }
 }
