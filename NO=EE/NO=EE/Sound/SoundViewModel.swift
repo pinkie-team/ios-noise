@@ -52,7 +52,7 @@ class SoundViewModel {
     }
     
     func stopRecoding() {
-        audioRecorder?.stop()
+        crop()
         AudioQueueFlush(queue)
         AudioQueueStop(queue, false)
         AudioQueueDispose(queue, true)
@@ -60,6 +60,52 @@ class SoundViewModel {
     }
 }
 
+
+extension SoundViewModel {
+    fileprivate func crop() {
+        let cropTime:TimeInterval = 3
+        guard let recodingTime = audioRecorder?.currentTime else {
+            print("Error recordedTime")
+            return
+        }
+        
+        audioRecorder?.stop()
+        
+        if recodingTime > cropTime {
+            let croppedFileSaveURL = NSURL(fileURLWithPath: NSHomeDirectory() + "/Documents/crop.m4a")
+            
+            do {
+                try FileManager.default.removeItem(at: croppedFileSaveURL as URL)
+                print("success remove file")
+            }catch{
+                print("file remove error")
+            }
+            
+            let trimStartTime = recodingTime - cropTime
+            let startTime = CMTimeMake(Int64(trimStartTime), 1)
+            let endTime = CMTimeMake(Int64(recodingTime), 1)
+            let exportTimeRange = CMTimeRangeFromTimeToTime(startTime, endTime)
+            
+            let asset = AVAsset(url: audioRecorder!.url)
+            let exporter = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetPassthrough)
+            exporter?.outputFileType = AVFileTypeAppleM4A
+            exporter?.timeRange = exportTimeRange
+            exporter?.outputURL = croppedFileSaveURL as URL
+            
+            exporter!.exportAsynchronously(completionHandler: {
+                switch exporter!.status {
+                case .completed:
+                    print("Crop Success! Url -> \(croppedFileSaveURL)")
+                case .failed, .cancelled:
+                    print("error = \(exporter?.error)")
+                default:
+                    print("error = \(exporter?.error)")
+                }
+            })
+        }
+
+    }
+}
 
 
 // MARK: - レコーダー
