@@ -61,6 +61,8 @@ class SoundViewModel {
 }
 
 
+
+// MARK: - クロップ
 extension SoundViewModel {
     fileprivate func crop() {
         let cropTime:TimeInterval = 3
