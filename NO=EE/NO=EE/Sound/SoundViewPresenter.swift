@@ -37,6 +37,14 @@ class SoundViewPresenter {
     func getIsMeasuring() -> Bool {
         return model.isMeasuring
     }
+    
+    func startRecoding() {
+        model.startRecoding()
+    }
+    
+    func stopRecoding() {
+        model.stopRecoding()
+    }
 }
 
 extension SoundViewPresenter: SoundViewModelDelegate {

@@ -69,11 +69,12 @@ class SoundViewController: FormViewController, SoundViewInterface {
 //            presenter.stopDeviceMotion()
 //            presenter.resetValueTime()
             presenter.setIsMeasuring(value: false)
+            presenter.stopRecoding()
         }else {
             title = "計測停止"
             disabled = true
             presenter.setIsMeasuring(value: true)
-//            presenter.setDeviceMotion()
+            presenter.startRecoding()
         }
         
         buttonRow?.title = title
