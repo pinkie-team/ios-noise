@@ -188,7 +188,9 @@ extension SoundViewModel {
         print("mPeakPower: ", levelMeter.mPeakPower, "mAveragePower: ", levelMeter.mAveragePower)
         print("")
         
-        delegate?.updateLabel(peak: levelMeter.mPeakPower, ave: levelMeter.mAveragePower)
+        DispatchQueue.main.async{
+            self.delegate?.updateLabel(peak: levelMeter.mPeakPower, ave: levelMeter.mAveragePower)
+        }
         
         if levelMeter.mPeakPower >= -1.0 && levelMeter.mPeakPower != 0.0 && levelMeter.mAveragePower != 0.0 {
             print("+++++++++++++++ LOUD!!! +++++++++++++++")
