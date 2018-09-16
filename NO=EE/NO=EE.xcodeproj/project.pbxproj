@@ -7,8 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		376AE329214D7F2D00E437A5 /* SoundViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376AE326214D7F2D00E437A5 /* SoundViewModel.swift */; };
+		376AE32A214D7F2D00E437A5 /* SoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376AE327214D7F2D00E437A5 /* SoundViewController.swift */; };
+		376AE32B214D7F2D00E437A5 /* SoundViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376AE328214D7F2D00E437A5 /* SoundViewPresenter.swift */; };
+		37B1889E214D3D7D006D4EB4 /* MotionViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B1889D214D3D7D006D4EB4 /* MotionViewPresenter.swift */; };
+		37B188A0214D3D8E006D4EB4 /* MotionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B1889F214D3D8E006D4EB4 /* MotionViewModel.swift */; };
 		37B68968211D9320007AC870 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B68967211D9320007AC870 /* AppDelegate.swift */; };
-		37B6896A211D9320007AC870 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B68969211D9320007AC870 /* ViewController.swift */; };
+		37B6896A211D9320007AC870 /* MotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B68969211D9320007AC870 /* MotionViewController.swift */; };
 		37B6896D211D9320007AC870 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37B6896B211D9320007AC870 /* Main.storyboard */; };
 		37B6896F211D9326007AC870 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37B6896E211D9326007AC870 /* Assets.xcassets */; };
 		37B68972211D9326007AC870 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37B68970211D9326007AC870 /* LaunchScreen.storyboard */; };
@@ -19,9 +24,14 @@
 
 /* Begin PBXFileReference section */
 		13F75AA9E97A39C4AC64EF1D /* Pods-NO=EE.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NO=EE.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NO=EE/Pods-NO=EE.debug.xcconfig"; sourceTree = "<group>"; };
+		376AE326214D7F2D00E437A5 /* SoundViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundViewModel.swift; sourceTree = "<group>"; };
+		376AE327214D7F2D00E437A5 /* SoundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundViewController.swift; sourceTree = "<group>"; };
+		376AE328214D7F2D00E437A5 /* SoundViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundViewPresenter.swift; sourceTree = "<group>"; };
+		37B1889D214D3D7D006D4EB4 /* MotionViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionViewPresenter.swift; sourceTree = "<group>"; };
+		37B1889F214D3D8E006D4EB4 /* MotionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionViewModel.swift; sourceTree = "<group>"; };
 		37B68964211D9320007AC870 /* NO=EE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NO=EE.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		37B68967211D9320007AC870 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		37B68969211D9320007AC870 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		37B68969211D9320007AC870 /* MotionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionViewController.swift; sourceTree = "<group>"; };
 		37B6896C211D9320007AC870 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		37B6896E211D9326007AC870 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		37B68971211D9326007AC870 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -44,6 +54,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		376AE325214D7F0E00E437A5 /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				376AE327214D7F2D00E437A5 /* SoundViewController.swift */,
+				376AE328214D7F2D00E437A5 /* SoundViewPresenter.swift */,
+				376AE326214D7F2D00E437A5 /* SoundViewModel.swift */,
+			);
+			path = Sound;
+			sourceTree = "<group>";
+		};
+		37B188A3214D7C4C006D4EB4 /* Motion */ = {
+			isa = PBXGroup;
+			children = (
+				37B68969211D9320007AC870 /* MotionViewController.swift */,
+				37B1889D214D3D7D006D4EB4 /* MotionViewPresenter.swift */,
+				37B1889F214D3D8E006D4EB4 /* MotionViewModel.swift */,
+			);
+			path = Motion;
+			sourceTree = "<group>";
+		};
 		37B6895B211D9320007AC870 = {
 			isa = PBXGroup;
 			children = (
@@ -65,8 +95,9 @@
 		37B68966211D9320007AC870 /* NO=EE */ = {
 			isa = PBXGroup;
 			children = (
+				376AE325214D7F0E00E437A5 /* Sound */,
+				37B188A3214D7C4C006D4EB4 /* Motion */,
 				37B68967211D9320007AC870 /* AppDelegate.swift */,
-				37B68969211D9320007AC870 /* ViewController.swift */,
 				37B6896B211D9320007AC870 /* Main.storyboard */,
 				37B6896E211D9326007AC870 /* Assets.xcassets */,
 				37B68970211D9326007AC870 /* LaunchScreen.storyboard */,
@@ -190,11 +221,15 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-NO=EE/Pods-NO=EE-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/TinyConstraints/TinyConstraints.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TinyConstraints.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -208,10 +243,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37B6896A211D9320007AC870 /* ViewController.swift in Sources */,
+				37B6896A211D9320007AC870 /* MotionViewController.swift in Sources */,
 				37E21EFB211F27BF007F2F59 /* Extensions.swift in Sources */,
 				37E21EFD211F2956007F2F59 /* Enum.swift in Sources */,
+				376AE329214D7F2D00E437A5 /* SoundViewModel.swift in Sources */,
+				376AE32A214D7F2D00E437A5 /* SoundViewController.swift in Sources */,
+				37B188A0214D3D8E006D4EB4 /* MotionViewModel.swift in Sources */,
+				376AE32B214D7F2D00E437A5 /* SoundViewPresenter.swift in Sources */,
 				37B68968211D9320007AC870 /* AppDelegate.swift in Sources */,
+				37B1889E214D3D7D006D4EB4 /* MotionViewPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
