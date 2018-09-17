@@ -51,7 +51,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="selectedImageTintColor" red="0.12549019610000001" green="0.1960784314" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" red="0.87843137250000003" green="0.35294117650000001" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="mQr-nm-TSa" kind="relationship" relationship="viewControllers" id="qdR-M7-RC0"/>
@@ -83,5 +83,5 @@
         <image name="motion" width="30" height="30"/>
         <image name="sound" width="30" height="30"/>
     </resources>
-    <color key="tintColor" red="0.12549019610000001" green="0.1960784314" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+    <color key="tintColor" red="0.87843137250000003" green="0.35294117650000001" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

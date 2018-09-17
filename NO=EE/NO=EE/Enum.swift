@@ -9,6 +9,6 @@
 import Foundation
 
 enum Color: String {
-    case main = "#20324f"
-    case red = "#FF2726"
+    case orange = "#e05a1e"
+    case yellow = "#eacf34"
 }

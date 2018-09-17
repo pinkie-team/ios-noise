@@ -50,7 +50,7 @@ class SoundViewController: FormViewController {
             <<< ButtonRow(){
                 $0.title = "計測開始"
                 $0.tag = "button"
-                $0.baseCell.backgroundColor = UIColor.hex(Color.main.rawValue, alpha: 1.0)
+                $0.baseCell.backgroundColor = UIColor.hex(Color.orange.rawValue, alpha: 1.0)
                 $0.baseCell.tintColor = UIColor.white
             }
             .onCellSelection {  cell, row in
