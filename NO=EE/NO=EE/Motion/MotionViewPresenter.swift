@@ -58,4 +58,8 @@ extension MotionViewPresenter: MotionViewModelDelegate {
     func updateLabel(z: Double) {
         view?.updateLabel(z: z)
     }
+    
+    func updateView(isAvailable: Bool) {
+        view?.updateView(isAvailable: isAvailable)
+    }
 }
