@@ -49,5 +49,7 @@ extension SoundViewPresenter: SoundViewModelDelegate {
         view?.updateLabel(peak: peak, ave: ave)
     }
     
-    
+    func updateView(isAvailable: Bool) {
+        view?.updateView(isAvailable: isAvailable)
+    }
 }

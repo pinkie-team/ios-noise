@@ -12,12 +12,14 @@ import TinyConstraints
 
 protocol SoundViewInterface: class {
     func updateLabel(peak: Float32, ave: Float32)
+    func updateView(isAvailable: Bool)
 }
 
 class SoundViewController: FormViewController {
     fileprivate var presenter: SoundViewPresenter!
     fileprivate var peakLabel: UILabel!
     fileprivate var aveLabel: UILabel!
+    fileprivate var availableView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +66,14 @@ class SoundViewController: FormViewController {
         peakLabel.center(in: tableView)
         aveLabel.topToBottom(of: peakLabel, offset: 10)
         aveLabel.centerX(to: tableView)
+        
+        availableView = UIView()
+        availableView.backgroundColor = UIColor.green
+        tableView.addSubview(availableView)
+        availableView.topToBottom(of: aveLabel)
+        availableView.centerX(to: tableView)
+        availableView.width(self.view.frame.width/2)
+        availableView.height(100)
     }
     
     fileprivate func buttonTapped() {
@@ -101,6 +111,14 @@ extension SoundViewController: SoundViewInterface {
     func updateLabel(peak: Float32, ave: Float32) {
         peakLabel.text = "Peak: " + String(peak)
         aveLabel.text = "Ave: " + String(ave)
+    }
+    
+    func updateView(isAvailable: Bool) {
+        if isAvailable {
+            availableView.backgroundColor = UIColor.green
+        }else {
+            availableView.backgroundColor = UIColor.red
+        }
     }
 }
 
