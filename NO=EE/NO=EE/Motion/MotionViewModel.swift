@@ -28,6 +28,7 @@ class MotionViewModel {
     var startTime:Double = 0.0
     var isCall:Bool = true
     var currentSensor = "1"
+    var queue:[Double] = []
     
     
     func setDeviceMotion() {
@@ -51,7 +52,16 @@ class MotionViewModel {
             self.valueTmp += String(gyro.z) + ","
             self.timeTmp += date + ","
             
-            if abs(gyro.z) > 0.003 && self.isCall {
+            if self.queue.count < 29 {
+                self.queue.append(abs(gyro.z))
+            }else {
+                self.queue.removeFirst()
+                self.queue.append(abs(gyro.z))
+            }
+            
+            let ave = self.queue.reduce(0, {$0 + $1}) / Double(self.queue.count)
+            
+            if abs(gyro.z - ave) > 0.003 && self.isCall {
                 self.isCall = false
                 self.startTime = Date().timeIntervalSince1970
                 self.timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(self.CountTime), userInfo: nil, repeats: true)
