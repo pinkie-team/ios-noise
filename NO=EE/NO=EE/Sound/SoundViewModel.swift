@@ -14,6 +14,7 @@ import SwiftyJSON
 
 protocol SoundViewModelDelegate: class {
     func updateLabel(peak: Float32, ave: Float32)
+    func updateView(isAvailable: Bool)
 }
 
 private func AudioQueueInputCallback(
@@ -79,6 +80,7 @@ extension SoundViewModel {
         if leftTime == 0 {
             volumeTimer.invalidate()
             isCall = true
+            self.delegate?.updateView(isAvailable: self.isCall)
         }
     }
 }
@@ -217,6 +219,7 @@ extension SoundViewModel {
             AudioQueueDispose(queue, true)
             
             isCall = false
+            self.delegate?.updateView(isAvailable: self.isCall)
             startTime = Date().timeIntervalSince1970
             volumeTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(CountTime), userInfo: nil, repeats: true)
             
