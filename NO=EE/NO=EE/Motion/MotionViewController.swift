@@ -12,12 +12,14 @@ import TinyConstraints
 
 protocol MotionViewInterface: class {
     func updateLabel(z: Double)
+    func updateView(isAvailable: Bool)
 }
 
 class MotionViewController: FormViewController {
 
     fileprivate var presenter: MotionViewPresenter!
     fileprivate var zLabel: UILabel!
+    fileprivate var availableView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +62,14 @@ class MotionViewController: FormViewController {
         zLabel = UILabel()
         tableView.addSubview(zLabel)
         zLabel.center(in: tableView)
+        
+        availableView = UIView()
+        availableView.backgroundColor = UIColor.green
+        tableView.addSubview(availableView)
+        availableView.topToBottom(of: zLabel)
+        availableView.centerX(to: tableView)
+        availableView.width(self.view.frame.width/2)
+        availableView.height(100)
     }
     
     fileprivate func buttonTapped() {
@@ -98,6 +108,14 @@ class MotionViewController: FormViewController {
 extension MotionViewController: MotionViewInterface {
     func updateLabel(z: Double) {
         zLabel.text = "z: " + String(z)
+    }
+    
+    func updateView(isAvailable: Bool) {
+        if isAvailable {
+            availableView.backgroundColor = UIColor.green
+        }else {
+            availableView.backgroundColor = UIColor.red
+        }
     }
 }
 

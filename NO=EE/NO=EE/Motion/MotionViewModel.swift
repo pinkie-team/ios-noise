@@ -13,6 +13,7 @@ import SwiftyJSON
 
 protocol MotionViewModelDelegate: class {
     func updateLabel(z: Double)
+    func updateView(isAvailable: Bool)
 }
 
 class MotionViewModel {
@@ -63,6 +64,7 @@ class MotionViewModel {
             
             if abs(gyro.z - ave) > 0.003 && self.isCall {
                 self.isCall = false
+                self.delegate?.updateView(isAvailable: self.isCall)
                 self.startTime = Date().timeIntervalSince1970
                 self.timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(self.CountTime), userInfo: nil, repeats: true)
                 
@@ -79,6 +81,7 @@ class MotionViewModel {
         if leftTime == 0 {
             timer.invalidate()
             isCall = true
+            self.delegate?.updateView(isAvailable: self.isCall)
         }
     }
 }
