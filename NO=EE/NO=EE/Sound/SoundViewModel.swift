@@ -210,7 +210,7 @@ extension SoundViewModel {
             self.delegate?.updateLabel(peak: levelMeter.mPeakPower, ave: levelMeter.mAveragePower)
         }
         
-        if levelMeter.mPeakPower >= -1.0 && levelMeter.mPeakPower != 0.0 && levelMeter.mAveragePower != 0.0 && isCall {
+        if levelMeter.mPeakPower >= -12.0 && levelMeter.mPeakPower != 0.0 && levelMeter.mAveragePower != 0.0 && isCall {
             print("+++++++++++++++ LOUD!!! +++++++++++++++")
             AudioQueueFlush(queue)
             AudioQueueStop(queue, false)
