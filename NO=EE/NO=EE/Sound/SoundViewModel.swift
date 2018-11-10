@@ -87,58 +87,58 @@ extension SoundViewModel {
 }
 
 // MARK: - クロップ
-extension SoundViewModel {
-    fileprivate func crop(volume: Float32) {
-        let cropTime:TimeInterval = 3
-        guard let recodingTime = audioRecorder?.currentTime else {
-            print("Error recordedTime")
-            return
-        }
-        
-        audioRecorder?.stop()
-        
-        if recodingTime > cropTime {
-            let croppedFileSaveURL = NSURL(fileURLWithPath: NSHomeDirectory() + "/Documents/crop.m4a")
-            
-            do {
-                try FileManager.default.removeItem(at: croppedFileSaveURL as URL)
-                print("success remove file")
-            }catch{
-                print("file remove error")
-            }
-            
-            let trimStartTime = recodingTime - cropTime
-            let startTime = CMTimeMake(Int64(trimStartTime), 1)
-            let endTime = CMTimeMake(Int64(recodingTime), 1)
-            let exportTimeRange = CMTimeRangeFromTimeToTime(startTime, endTime)
-            
-            let asset = AVAsset(url: audioRecorder!.url)
-            let exporter = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetPassthrough)
-            exporter?.outputFileType = AVFileTypeAppleM4A
-            exporter?.timeRange = exportTimeRange
-            exporter?.outputURL = croppedFileSaveURL as URL
-            
-            exporter!.exportAsynchronously(completionHandler: {
-                switch exporter!.status {
-                case .completed:
-                    print("Crop Success! Url -> \(croppedFileSaveURL)")
-                    
-                    self.callSoundAPI(volume: String(volume), sensor: self.currentSensor, crop: croppedFileSaveURL as URL)
-                    self.startRecoding()
-                case .failed, .cancelled:
-                    print("error = \(exporter?.error)")
-                    self.startRecoding()
-                default:
-                    print("error = \(exporter?.error)")
-                    self.startRecoding()
-                }
-            })
-        }else {
-            startRecoding()
-            print("時間が短いのでスキップ")
-        }
-    }
-}
+//extension SoundViewModel {
+//    fileprivate func crop(volume: Float32) {
+//        let cropTime:TimeInterval = 3
+//        guard let recodingTime = audioRecorder?.currentTime else {
+//            print("Error recordedTime")
+//            return
+//        }
+//
+//        audioRecorder?.stop()
+//
+//        if recodingTime > cropTime {
+//            let croppedFileSaveURL = NSURL(fileURLWithPath: NSHomeDirectory() + "/Documents/crop.m4a")
+//
+//            do {
+//                try FileManager.default.removeItem(at: croppedFileSaveURL as URL)
+//                print("success remove file")
+//            }catch{
+//                print("file remove error")
+//            }
+//
+//            let trimStartTime = recodingTime - cropTime
+//            let startTime = CMTimeMake(Int64(trimStartTime), 1)
+//            let endTime = CMTimeMake(Int64(recodingTime), 1)
+//            let exportTimeRange = CMTimeRangeFromTimeToTime(startTime, endTime)
+//
+//            let asset = AVAsset(url: audioRecorder!.url)
+//            let exporter = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetPassthrough)
+//            exporter?.outputFileType = AVFileTypeAppleM4A
+//            exporter?.timeRange = exportTimeRange
+//            exporter?.outputURL = croppedFileSaveURL as URL
+//
+//            exporter!.exportAsynchronously(completionHandler: {
+//                switch exporter!.status {
+//                case .completed:
+//                    print("Crop Success! Url -> \(croppedFileSaveURL)")
+//
+//                    self.callSoundAPI(volume: String(volume), sensor: self.currentSensor, crop: croppedFileSaveURL as URL)
+//                    self.startRecoding()
+//                case .failed, .cancelled:
+//                    print("error = \(exporter?.error)")
+//                    self.startRecoding()
+//                default:
+//                    print("error = \(exporter?.error)")
+//                    self.startRecoding()
+//                }
+//            })
+//        }else {
+//            startRecoding()
+//            print("時間が短いのでスキップ")
+//        }
+//    }
+//}
 
 
 // MARK: - レコーダー
@@ -225,7 +225,8 @@ extension SoundViewModel {
             startTime = Date().timeIntervalSince1970
             volumeTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(CountTime), userInfo: nil, repeats: true)
             
-            crop(volume: levelMeter.mPeakPower)
+            self.startRecoding()
+//            crop(volume: levelMeter.mPeakPower)
         }
     }
 }
@@ -240,7 +241,7 @@ extension SoundViewModel {
         Alamofire.upload(multipartFormData: { multipartFormData in
             multipartFormData.append(volume.data(using: .utf8)!, withName: "volume")
             multipartFormData.append(sensor.data(using: .utf8)!, withName: "sensor")
-            multipartFormData.append(crop, withName: "crop")
+//            multipartFormData.append(crop, withName: "crop")
             },
             to: url,
             encodingCompletion: { encodingResult in
