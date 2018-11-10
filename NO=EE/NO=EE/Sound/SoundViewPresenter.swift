@@ -27,6 +27,10 @@ class SoundViewPresenter {
         model.currentSensor = value
     }
     
+    func setThreshold(value: Double) {
+        model.threshold = value
+    }
+    
     func setIsMeasuring(value: Bool) {
         model.isMeasuring = value
     }

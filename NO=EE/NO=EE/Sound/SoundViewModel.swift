@@ -33,6 +33,7 @@ class SoundViewModel {
     var isMeasuring = false
     var audioRecorder: AVAudioRecorder?
     let fileURL = NSURL(fileURLWithPath: NSHomeDirectory() + "/Documents/test.m4a")
+    var threshold = 12.0
     
     var queue: AudioQueueRef!
     var volumeTimer: Timer!
@@ -212,8 +213,9 @@ extension SoundViewModel {
             self.delegate?.updateLabel(peak: levelMeter.mPeakPower, ave: levelMeter.mAveragePower)
         }
         
-        if levelMeter.mPeakPower >= -12.0 && levelMeter.mPeakPower != 0.0 && levelMeter.mAveragePower != 0.0 && isCall {
+        if levelMeter.mPeakPower >= Float32(threshold) * -1 && levelMeter.mPeakPower != 0.0 && levelMeter.mAveragePower != 0.0 && isCall {
             print("+++++++++++++++ LOUD!!! +++++++++++++++")
+            print(self.threshold)
             AudioQueueFlush(queue)
             AudioQueueStop(queue, false)
             AudioQueueDispose(queue, true)

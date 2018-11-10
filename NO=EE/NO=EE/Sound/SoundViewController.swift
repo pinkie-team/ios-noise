@@ -48,6 +48,12 @@ class SoundViewController: FormViewController {
                 $0.cell.detailTextLabel?.textColor = UIColor.black
             }
         
+            <<< DecimalRow(){
+                $0.title = "閾値"
+                $0.value = 12.0
+                $0.tag = "threshold"
+        }
+        
         form +++ Section("")
             <<< ButtonRow(){
                 $0.title = "計測開始"
@@ -56,6 +62,7 @@ class SoundViewController: FormViewController {
                 $0.baseCell.tintColor = UIColor.white
             }
             .onCellSelection {  cell, row in
+                self.presenter.setThreshold(value: self.form.values()["threshold"] as! Double)
                 self.buttonTapped()
         }
         
