@@ -39,6 +39,10 @@ class MotionViewController: FormViewController {
     }
     
     fileprivate func initUI() {
+        let formatter = NumberFormatter()
+        formatter.maximumFractionDigits = 5
+
+        
         form +++ Section("")
             <<< PickerInputRow<String>(""){
                 $0.title = "センサー種別"
@@ -48,6 +52,13 @@ class MotionViewController: FormViewController {
                 $0.cell.detailTextLabel?.textColor = UIColor.black
             }
         
+            <<< DecimalRow(){
+                $0.title = "閾値"
+                $0.value = 0.003
+                $0.formatter = formatter
+                $0.tag = "threshold"
+        }
+        
         form +++ Section("")
             <<< ButtonRow(){
                 $0.title = "計測開始"
@@ -56,6 +67,7 @@ class MotionViewController: FormViewController {
                 $0.baseCell.tintColor = UIColor.white
             }
             .onCellSelection {  cell, row in
+                self.presenter.setThreshold(value: self.form.values()["threshold"] as! Double)
                 self.buttonTapped()
         }
         

@@ -27,6 +27,10 @@ class MotionViewPresenter {
         model.isMeasuring = value
     }
     
+    func setThreshold(value: Double) {
+        model.threshold = value
+    }
+    
     func getIsMeasuring() -> Bool {
         return model.isMeasuring
     }

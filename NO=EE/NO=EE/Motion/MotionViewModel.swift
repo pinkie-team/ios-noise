@@ -30,6 +30,7 @@ class MotionViewModel {
     var isCall:Bool = true
     var currentSensor = "1"
     var queue:[Double] = []
+    var threshold = 0.003
     
     
     func setDeviceMotion() {
@@ -62,7 +63,7 @@ class MotionViewModel {
             
             let ave = self.queue.reduce(0, {$0 + $1}) / Double(self.queue.count)
             
-            if abs(gyro.z - ave) > 0.003 && self.isCall {
+            if abs(gyro.z - ave) > self.threshold && self.isCall {
                 self.isCall = false
                 self.delegate?.updateView(isAvailable: self.isCall)
                 self.startTime = Date().timeIntervalSince1970
