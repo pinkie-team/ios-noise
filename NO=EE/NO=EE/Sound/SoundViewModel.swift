@@ -28,7 +28,7 @@ private func AudioQueueInputCallback(
 class SoundViewModel {
     weak var delegate: SoundViewModelDelegate?
     
-    let sensors = ["1", "2"]
+    let sensors = ["1", "2", "3"]
     var currentSensor = "1"
     var isMeasuring = false
     var audioRecorder: AVAudioRecorder?

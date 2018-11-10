@@ -20,7 +20,7 @@ class MotionViewModel {
     weak var delegate: MotionViewModelDelegate?
     var motionManager: CMMotionManager = CMMotionManager()
     
-    let sensors = ["1", "2"]
+    let sensors = ["1", "2", "3"]
     var isMeasuring = false
     var valueTmp: String = ""
     var timeTmp: String = ""
