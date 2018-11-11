@@ -216,6 +216,9 @@ extension SoundViewModel {
         
         if levelMeter.mPeakPower >= Float32(threshold) * -1 && levelMeter.mPeakPower != 0.0 && levelMeter.mAveragePower != 0.0 && isCall {
             print("+++++++++++++++ LOUD!!! +++++++++++++++")
+            
+            callSoundAPI(volume: String(levelMeter.mPeakPower), sensor: self.currentSensor)
+            
             print(self.threshold)
             AudioQueueFlush(queue)
             AudioQueueStop(queue, false)
@@ -236,37 +239,52 @@ extension SoundViewModel {
 
 // MARK: - API
 extension SoundViewModel {
-    func callSoundAPI(volume:String, sensor:String, crop:URL) {
+    func callSoundAPI(volume:String, sensor:String) {
         let url = "http://\(host):80/sound"
+        print(url)
+        let params = ["volume": volume, "sensor": currentSensor]
         
-        Alamofire.upload(multipartFormData: { multipartFormData in
-            multipartFormData.append(volume.data(using: .utf8)!, withName: "volume")
-            multipartFormData.append(sensor.data(using: .utf8)!, withName: "sensor")
-//            multipartFormData.append(crop, withName: "crop")
-            },
-            to: url,
-            encodingCompletion: { encodingResult in
-                switch encodingResult {
-                    case .success(let upload, _, _):
-                            upload
-                            .validate(statusCode: 200..<600)
-                            .responseJSON { response in
-                                
-                                switch response.result {
-                                case .success(let value):
-                                    let json = JSON(value)
-                                    print("***** GET Auth API Results *****")
-                                    print(json)
-                                    print("***** GET Auth API Results *****")
-                                case .failure(_):
-                                    print("API Error")
-                                }
-                        }
-                    case .failure(let encodingError):
-                        print("encodingError")
-                        print(encodingError)
-                    }
+        Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding(options: [])).validate(statusCode: 200..<600).responseJSON { (response) in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                print("***** GET Auth API Results *****")
+                print(json)
+                print("***** GET Auth API Results *****")
+                
+            case .failure(_):
+                print("API Error")
             }
-            )
+        }
+        
+//        Alamofire.upload(multipartFormData: { multipartFormData in
+//            multipartFormData.append(volume.data(using: .utf8)!, withName: "volume")
+//            multipartFormData.append(sensor.data(using: .utf8)!, withName: "sensor")
+////            multipartFormData.append(crop, withName: "crop")
+//            },
+//            to: url,
+//            encodingCompletion: { encodingResult in
+//                switch encodingResult {
+//                    case .success(let upload, _, _):
+//                            upload
+//                            .validate(statusCode: 200..<600)
+//                            .responseJSON { response in
+//
+//                                switch response.result {
+//                                case .success(let value):
+//                                    let json = JSON(value)
+//                                    print("***** GET Auth API Results *****")
+//                                    print(json)
+//                                    print("***** GET Auth API Results *****")
+//                                case .failure(_):
+//                                    print("API Error")
+//                                }
+//                        }
+//                    case .failure(let encodingError):
+//                        print("encodingError")
+//                        print(encodingError)
+//                    }
+//            }
+//            )
     }
 }
