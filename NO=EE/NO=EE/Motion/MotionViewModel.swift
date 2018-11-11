@@ -31,6 +31,7 @@ class MotionViewModel {
     var currentSensor = "1"
     var queue:[Double] = []
     var threshold = 0.003
+    var host = "172.20.10.10"
     
     
     func setDeviceMotion() {
@@ -114,7 +115,7 @@ extension MotionViewModel {
 // MARK: - API
 extension MotionViewModel {
     func callMotionAPI(z: Double) {
-        let url = "http://172.20.10.10:80/motion"
+        let url = "http://\(host):80/motion"
         let params = ["z": String(z), "sensor": currentSensor]
         
         Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding(options: [])).validate(statusCode: 200..<600).responseJSON { (response) in

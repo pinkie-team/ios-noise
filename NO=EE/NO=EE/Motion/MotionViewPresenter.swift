@@ -31,6 +31,10 @@ class MotionViewPresenter {
         model.threshold = value
     }
     
+    func setHost(address: String) {
+        model.host = address
+    }
+    
     func getIsMeasuring() -> Bool {
         return model.isMeasuring
     }

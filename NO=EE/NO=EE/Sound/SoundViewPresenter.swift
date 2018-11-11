@@ -35,6 +35,10 @@ class SoundViewPresenter {
         model.isMeasuring = value
     }
     
+    func setHost(address: String) {
+        model.host = address
+    }
+    
     func getIsMeasuring() -> Bool {
         return model.isMeasuring
     }

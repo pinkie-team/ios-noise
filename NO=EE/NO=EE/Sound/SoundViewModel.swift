@@ -34,6 +34,7 @@ class SoundViewModel {
     var audioRecorder: AVAudioRecorder?
     let fileURL = NSURL(fileURLWithPath: NSHomeDirectory() + "/Documents/test.m4a")
     var threshold = 12.0
+    var host = "172.20.10.10"
     
     var queue: AudioQueueRef!
     var volumeTimer: Timer!
@@ -236,7 +237,7 @@ extension SoundViewModel {
 // MARK: - API
 extension SoundViewModel {
     func callSoundAPI(volume:String, sensor:String, crop:URL) {
-        let url = "http://172.20.10.10:80/sound"
+        let url = "http://\(host):80/sound"
         
         Alamofire.upload(multipartFormData: { multipartFormData in
             multipartFormData.append(volume.data(using: .utf8)!, withName: "volume")
