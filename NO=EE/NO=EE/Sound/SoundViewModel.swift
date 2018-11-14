@@ -211,13 +211,13 @@ extension SoundViewModel {
         print("")
         
         DispatchQueue.main.async{
-            self.delegate?.updateLabel(peak: levelMeter.mPeakPower, ave: levelMeter.mAveragePower)
+            self.delegate?.updateLabel(peak: levelMeter.mPeakPower - 10.0, ave: levelMeter.mAveragePower - 10.0)
         }
         
         if levelMeter.mPeakPower >= Float32(threshold) * -1 && levelMeter.mPeakPower != 0.0 && levelMeter.mAveragePower != 0.0 && isCall {
             print("+++++++++++++++ LOUD!!! +++++++++++++++")
             
-            callSoundAPI(volume: String(levelMeter.mPeakPower), sensor: self.currentSensor)
+            callSoundAPI(volume: String(levelMeter.mPeakPower - 10.0), sensor: self.currentSensor)
             
             print(self.threshold)
             AudioQueueFlush(queue)
